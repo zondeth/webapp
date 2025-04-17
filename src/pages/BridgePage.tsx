@@ -14,9 +14,9 @@ export const BridgePage = () => (
             <Tabs defaultValue="zond2evm" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                     {/* eslint-disable-next-line */}
-                    <TabsTrigger value="zond2evm">Zond → EVM</TabsTrigger>
+                    <TabsTrigger value="zond2evm" className="cursor-pointer">Zond → EVM</TabsTrigger>
                     {/* eslint-disable-next-line */}
-                    <TabsTrigger value="evm2zond">EVM → Zond</TabsTrigger>
+                    <TabsTrigger value="evm2zond" className="cursor-pointer">EVM → Zond</TabsTrigger>
                 </TabsList>
                 <TabsContent value="zond2evm">
                     <BridgeWidget direction="ZOND_TO_EVM" />

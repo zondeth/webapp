@@ -33,6 +33,7 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
             id="from"
             placeholder="0.0"
             inputMode="decimal"
+            type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
@@ -50,7 +51,7 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
       <CardFooter>
         <Button
           disabled={!amount || isLoading}
-          className={clsx("w-full", isLoading && "cursor-not-allowed")}
+          className={clsx("w-full cursor-pointer", isLoading && "cursor-not-allowed")}
           onClick={handleSubmit}
         >
           {isLoading ? <LoaderCircle className="animate-spin w-4 h-4" /> : `Bridge ${from} → ${to}`}
