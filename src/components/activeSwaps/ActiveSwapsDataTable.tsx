@@ -30,7 +30,7 @@ const mockSwaps: Swap[] = [
   },
 ];
 
-export const DataTable = () => (
+export const ActiveSwapsDataTable = () => (
   <div className="overflow-x-auto">
     <Table>
       <TableHeader>
@@ -65,11 +65,11 @@ export const DataTable = () => (
               <TableCell>
                 {swap.status === "Locked" && (
                   <>
-                    <Button variant="link" className="text-primary">
+                    <Button variant="link" className="text-primary cursor-pointer">
                       Claim
                     </Button>
                     |
-                    <Button variant="link" className="text-red-500">
+                    <Button variant="link" className="text-red-500 cursor-pointer">
                       Refund
                     </Button>
                   </>

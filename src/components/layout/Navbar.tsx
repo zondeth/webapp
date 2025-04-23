@@ -6,14 +6,14 @@ export const Navbar = () => (
     <header className="fixed top-0 inset-x-0 backdrop-blur supports-[backdrop-filter]:bg-white/50 shadow-md z-50">
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
             <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-                <img src="/logo.png" alt="Zond Bridge" className="w-8 h-8" />
+                <img src="/logo.png" alt="Zond Atomic Swap" className="w-8 h-8" />
                 {/* eslint-disable-next-line */}
-                Zond ↔ EVM Bridge
+                Zond ↔ EVM
             </Link>
             <nav className="hidden md:flex gap-6 font-medium">
                 {[
-                    { to: "/bridge", label: "Bridge" },
-                    { to: "/orderbook", label: "Orderbook" },
+                    { to: "/swap", label: "Swap" },
+                    { to: "/active-swaps", label: "Active Swaps" },
                     { to: "/history", label: "History" },
                 ].map(({ to, label }) => (
                     <NavLink
@@ -27,7 +27,7 @@ export const Navbar = () => (
                     </NavLink>
                 ))}
             </nav>
-            <Button variant="default" className="gap-2">
+            <Button variant="default" className="gap-2 cursor-pointer">
                 <Wallet className="w-5 h-5" /> Connect
             </Button>
         </div>

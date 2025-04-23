@@ -1,13 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BridgeWidget } from "@/components/bridge/BridgeWidget";
+import { AtomicSwapWidget } from "@/components/atomicSwap/AtomicSwapWidget";
 import { ArrowUpDown } from "lucide-react";
 
-export const BridgePage = () => (
+export const AtomicSwapPage = () => (
     <Card className="mx-auto max-w-xl">
         <CardHeader>
             <CardTitle className="text-center text-2xl flex items-center justify-center gap-2">
-                <ArrowUpDown className="w-6 h-6" /> Bridge Assets
+                <ArrowUpDown className="w-6 h-6" /> Atomic Swap
             </CardTitle>
         </CardHeader>
         <CardContent>
@@ -19,10 +19,10 @@ export const BridgePage = () => (
                     <TabsTrigger value="evm2zond" className="cursor-pointer">EVM → Zond</TabsTrigger>
                 </TabsList>
                 <TabsContent value="zond2evm">
-                    <BridgeWidget direction="ZOND_TO_EVM" />
+                    <AtomicSwapWidget direction="ZOND_TO_EVM" />
                 </TabsContent>
                 <TabsContent value="evm2zond">
-                    <BridgeWidget direction="EVM_TO_ZOND" />
+                    <AtomicSwapWidget direction="EVM_TO_ZOND" />
                 </TabsContent>
             </Tabs>
         </CardContent>

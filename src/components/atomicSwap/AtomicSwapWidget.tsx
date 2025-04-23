@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LoaderCircle, Copy } from "lucide-react";
+import { LoaderCircle, Copy, Check } from "lucide-react";
 import sha256 from 'js-sha256';
 import { SwapSteps } from "@/components/guide/SwapSteps";
 
@@ -10,13 +10,14 @@ interface Props {
   direction: "ZOND_TO_EVM" | "EVM_TO_ZOND";
 }
 
-export const BridgeWidget: React.FC<Props> = ({ direction }) => {
+export const AtomicSwapWidget: React.FC<Props> = ({ direction }) => {
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [secret, setSecret] = useState("");
   const [hash, setHash] = useState("");
   const [expiry, setExpiry] = useState("");
   const [swapStatus, setSwapStatus] = useState<"initiated" | "locked" | "claimed" | "refunded" | null>(null);
+  const [copiedField, setCopiedField] = useState<"secret" | "hash" | null>(null);
 
   const generateSecret = () => {
     const generatedSecret = Math.random().toString(36).substring(2, 15);
@@ -52,8 +53,12 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
     }, 2000);
   };
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string, field: "secret" | "hash") => {
     navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => {
+      setCopiedField(null);
+    }, 1000); // Reset after 1 seconds
   };
 
   const getCurrentStep = () => {
@@ -102,7 +107,7 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
-            <Button onClick={generateSecret} disabled={isLoading || !amount}>
+            <Button onClick={generateSecret} disabled={isLoading || !amount} className={isLoading ? "cursor-not-allowed" : "cursor-pointer"}>
               {isLoading ? <LoaderCircle className="animate-spin w-4 h-4" /> : "Generate Secret"}
             </Button>
           </div>
@@ -120,8 +125,12 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
                   readOnly
                   value={secret}
                 />
-                <Button variant="ghost" onClick={() => copyToClipboard(secret)}>
-                  <Copy className="w-4 h-4" />
+                <Button variant="ghost" className="cursor-pointer" onClick={() => copyToClipboard(secret, "secret")}>
+                  {copiedField === "secret" ? (
+                    <Check className="w-4 h-4 text-green-500" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
                 </Button>
               </div>
             </div>
@@ -134,8 +143,12 @@ export const BridgeWidget: React.FC<Props> = ({ direction }) => {
                   readOnly
                   value={hash}
                 />
-                <Button variant="ghost" onClick={() => copyToClipboard(hash)}>
-                  <Copy className="w-4 h-4" />
+                <Button variant="ghost" className="cursor-pointer" onClick={() => copyToClipboard(hash, "hash")}>
+                  {copiedField === "hash" ? (
+                    <Check className="w-4 h-4 text-green-500" />
+                  ) : (
+                    <Copy className="w-4 h-4" />
+                  )}
                 </Button>
               </div>
             </div>

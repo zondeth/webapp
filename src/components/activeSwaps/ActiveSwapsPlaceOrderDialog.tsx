@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useState } from "react";
-import { Copy, LoaderCircle } from "lucide-react";
+import { Copy, Check, LoaderCircle } from "lucide-react";
 import sha256 from 'js-sha256'; // Ensure to install js-sha256 via npm
 
 interface Props {
@@ -11,13 +11,14 @@ interface Props {
   onOpenChange: (o: boolean) => void;
 }
 
-export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
+export const ActiveSwapsPlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
   const [direction, setDirection] = useState<"ZOND_TO_EVM" | "EVM_TO_ZOND">("ZOND_TO_EVM");
   const [amount, setAmount] = useState("");
   const [expiry, setExpiry] = useState("");
   const [secret, setSecret] = useState("");
   const [hash, setHash] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [copiedField, setCopiedField] = useState<"secret" | "hash" | null>(null);
 
   // Generate secret and hash
   const generateSecretAndHash = () => {
@@ -43,8 +44,12 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
   };
 
   // Function to copy text to clipboard
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string, field: "secret" | "hash") => {
     navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => {
+      setCopiedField(null);
+    }, 1000);
   };
 
   return (
@@ -56,8 +61,8 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
         <div className="space-y-4 py-2">
           {/* Step 1: Choose Direction */}
           <ToggleGroup type="single" value={direction} onValueChange={(v) => setDirection(v as "ZOND_TO_EVM" | "EVM_TO_ZOND")} className="w-full">
-            <ToggleGroupItem value="ZOND_TO_EVM" className="w-1/2">ZOND → EVM</ToggleGroupItem>
-            <ToggleGroupItem value="EVM_TO_ZOND" className="w-1/2">EVM → ZOND</ToggleGroupItem>
+            <ToggleGroupItem value="ZOND_TO_EVM" className="w-1/2 cursor-pointer">ZOND → EVM</ToggleGroupItem>
+            <ToggleGroupItem value="EVM_TO_ZOND" className="w-1/2 cursor-pointer">EVM → ZOND</ToggleGroupItem>
           </ToggleGroup>
 
           {/* Step 2: Enter Amount */}
@@ -88,7 +93,7 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
 
           {/* Step 4: Generate Secret and Hash */}
           {!secret && (
-            <Button onClick={generateSecretAndHash} disabled={isLoading || !amount || !expiry}>
+            <Button onClick={generateSecretAndHash} disabled={isLoading || !amount || !expiry} className={isLoading ? "cursor-not-allowed" : "cursor-pointer"}>
               {isLoading ? <LoaderCircle className="animate-spin w-4 h-4" /> : "Generate Secret & Hash"}
             </Button>
           )}
@@ -104,8 +109,12 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
                     readOnly
                     value={secret}
                   />
-                  <Button variant="ghost" onClick={() => copyToClipboard(secret)}>
-                    <Copy className="w-4 h-4" />
+                  <Button variant="ghost" className="cursor-pointer" onClick={() => copyToClipboard(secret, "secret")}>
+                    {copiedField === "secret" ? (
+                      <Check className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
               </div>
@@ -118,8 +127,12 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
                     readOnly
                     value={hash}
                   />
-                  <Button variant="ghost" onClick={() => copyToClipboard(hash)}>
-                    <Copy className="w-4 h-4" />
+                  <Button variant="ghost" className="cursor-pointer" onClick={() => copyToClipboard(hash, "hash")}>
+                    {copiedField === "hash" ? (
+                      <Check className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
               </div>
@@ -129,7 +142,7 @@ export const PlaceOrderDialog: React.FC<Props> = ({ open, onOpenChange }) => {
           {/* Step 5: Submit Swap */}
           {secret && hash && (
             <Button onClick={handleSubmit} disabled={isLoading}>
-              {isLoading ? <LoaderCircle className="animate-spin w-4 h-4" /> : "Initiate Swap"}
+              {isLoading ? <LoaderCircle className="animate-spin w-4 h-4 cursor-pointer" /> : "Initiate Swap"}
             </Button>
           )}
         </div>
