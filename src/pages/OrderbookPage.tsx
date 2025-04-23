@@ -11,11 +11,10 @@ export const OrderbookPage = () => {
     <Card>
       <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <CardTitle className="flex items-center gap-2 text-2xl">
-          {/* eslint-disable-next-line */}
-          <Scale className="w-6 h-6" /> Orderbook (ZND ↔ ETH)
+          <Scale className="w-6 h-6" /> Active Swaps
         </CardTitle>
         <Button variant="default" className="gap-2" onClick={() => setIsOpen(true)}>
-          <Plus className="w-4 h-4" /> Place Order
+          <Plus className="w-4 h-4" /> Initiate Swap
         </Button>
       </CardHeader>
       <CardContent>
