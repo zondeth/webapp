@@ -15,9 +15,8 @@ export const SwapSteps: React.FC<SwapStepsProps> = ({ currentStep }) => {
   const steps: StepProps[] = [
     { title: "Enter Details", description: "Choose direction, amount, and expiry.", isActive: currentStep === 1, isCompleted: currentStep > 1 },
     { title: "Generate Secret", description: "Create a secret and its hash.", isActive: currentStep === 2, isCompleted: currentStep > 2 },
-    { title: "Lock Assets", description: "Lock your assets in HTLC.", isActive: currentStep === 3, isCompleted: currentStep > 3 },
-    { title: "Claim Assets", description: "Use the secret to claim assets.", isActive: currentStep === 4, isCompleted: currentStep > 4 },
-    { title: "Complete", description: "Swap completed successfully.", isActive: currentStep === 5, isCompleted: false },
+    { title: "Download Secret and Hash", description: "Download the secret and hash.", isActive: currentStep === 3, isCompleted: currentStep > 3 },
+    { title: "Lock Assets", description: "Lock your assets in HTLC.", isActive: currentStep === 4, isCompleted: currentStep > 4 }
   ];
 
   return (

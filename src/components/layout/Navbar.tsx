@@ -1,6 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { Wallet } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const Navbar = () => (
     <header className="fixed top-0 inset-x-0 backdrop-blur supports-[backdrop-filter]:bg-white/50 shadow-md z-50">
@@ -27,9 +25,6 @@ export const Navbar = () => (
                     </NavLink>
                 ))}
             </nav>
-            <Button variant="default" className="gap-2 cursor-pointer">
-                <Wallet className="w-5 h-5" /> Connect
-            </Button>
         </div>
     </header>
 );

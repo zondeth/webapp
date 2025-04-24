@@ -44,4 +44,5 @@ function Toggle({
   )
 }
 
+// eslint-disable-next-line
 export { Toggle, toggleVariants }

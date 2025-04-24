@@ -1,16 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AtomicSwapWidget } from "@/components/atomicSwap/AtomicSwapWidget";
-import { ArrowUpDown } from "lucide-react";
 
 export const AtomicSwapPage = () => (
     <Card className="mx-auto max-w-xl">
         <CardHeader>
             <CardTitle className="text-center text-2xl flex items-center justify-center gap-2">
-                <ArrowUpDown className="w-6 h-6" /> Atomic Swap
+                Create Atomic Swap
             </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-2 md:px-6">
             <Tabs defaultValue="zond2evm" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                     {/* eslint-disable-next-line */}
