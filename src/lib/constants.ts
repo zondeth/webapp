@@ -53,3 +53,6 @@ export const EVM_TOKEN_LIST: Token[] = [
         icon: "/assets/images/tokens/usdc.png",
     },
 ]
+
+export const SYSTEM_ZOND_ADDRESS = "Z0000000000000000000000000000000000000000"
+export const SYSTEM_EVM_ADDRESS = "0x0000000000000000000000000000000000000000"
